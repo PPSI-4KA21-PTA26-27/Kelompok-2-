@@ -34,6 +34,13 @@ class KatalogController extends Controller
             });
         }
 
+        // Pengurutan: terbaru (bawaan), termurah, atau termahal
+        match ($request->input('urut', 'terbaru')) {
+            'termurah' => $query->orderBy('harga'),
+            'termahal' => $query->orderByDesc('harga'),
+            default    => $query->orderByDesc('id_produk'),
+        };
+
         $produkList = $query->get();
 
         return view('publik.katalog', compact('produkList', 'kategoriList'));

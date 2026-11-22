@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 // Rute Publik (UC-01 & UC-02)
 Route::get('/', [PublicProfilController::class, 'index'])->name('beranda');
 Route::get('/portofolio', [PublicProfilController::class, 'portofolio'])->name('portofolio');
+Route::get('/testimoni', [PublicProfilController::class, 'testimoni'])->name('testimoni');
 Route::get('/kontak', [PublicProfilController::class, 'kontak'])->name('kontak');
 Route::get('/katalog', [KatalogController::class, 'katalog'])->name('katalog');
 Route::get('/produk/{id}', [KatalogController::class, 'detail'])->name('produk.detail');

@@ -18,9 +18,11 @@ class PublicProfilController extends Controller
     public function index(): View
     {
         $profil = ProfilKontak::first();
-        $produkUnggulan = Produk::with('kategori')->take(4)->get();
+        $produkUnggulan = Produk::with('kategori')->orderByDesc('id_produk')->take(3)->get();
+        $totalProduk = Produk::count();
+        $waLink = $profil ? 'https://wa.me/' . preg_replace('/[^0-9]/', '', $profil->nomor_wa) : '#';
 
-        return view('publik.beranda', compact('profil', 'produkUnggulan'));
+        return view('publik.beranda', compact('profil', 'produkUnggulan', 'totalProduk', 'waLink'));
     }
 
     /**
@@ -34,6 +36,18 @@ class PublicProfilController extends Controller
         $testimoni = Testimoni::orderByDesc('tanggal')->get();
 
         return view('publik.portofolio', compact('portofolio', 'testimoni'));
+    }
+
+    /**
+     * Menampilkan halaman Testimoni pelanggan (UC-01, KF-03).
+     *
+     * @return \Illuminate\View\View Halaman L-03 Testimoni
+     */
+    public function testimoni(): View
+    {
+        $testimoni = Testimoni::orderByDesc('tanggal')->get();
+
+        return view('publik.testimoni', compact('testimoni'));
     }
 
     /**
