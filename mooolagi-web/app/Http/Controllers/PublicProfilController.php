@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Portofolio;
 use App\Models\Produk;
 use App\Models\ProfilKontak;
@@ -20,9 +21,10 @@ class PublicProfilController extends Controller
         $profil = ProfilKontak::first();
         $produkUnggulan = Produk::with('kategori')->orderByDesc('id_produk')->take(3)->get();
         $totalProduk = Produk::count();
+        $kategoriList = Kategori::withCount('produk')->get();
         $waLink = $profil ? 'https://wa.me/' . preg_replace('/[^0-9]/', '', $profil->nomor_wa) : '#';
 
-        return view('publik.beranda', compact('profil', 'produkUnggulan', 'totalProduk', 'waLink'));
+        return view('publik.beranda', compact('profil', 'produkUnggulan', 'totalProduk', 'kategoriList', 'waLink'));
     }
 
     /**
