@@ -2,73 +2,65 @@
 @section('title', 'Masuk & Daftar Akun — Mooolagi')
 
 @section('content')
-<div class="text-center mb-5">
-    <a href="{{ route('beranda') }}" class="mo-brand d-inline-block mb-3">mooolagi.</a>
-    <h1 class="fw-bold" style="font-size:2rem;letter-spacing:-.02em">Akun Pelanggan Mooolagi</h1>
-    <p class="mx-auto mb-0" style="max-width:38rem">Masuk atau daftarkan akun baru untuk menyimpan keranjang belanja, checkout pengiriman kado, dan memantau status pembuatan pesanan.</p>
-</div>
-
-<div class="row g-4 justify-content-center">
+<div class="row g-4 justify-content-center align-items-start">
     {{-- UC-14: Sign In --}}
-    <div class="col-lg-5">
+    <div class="col-lg-4 col-md-6" style="margin-top:2.5rem">
+        <div class="text-center mb-2"><a href="{{ route('beranda') }}"><img src="{{ asset('images/logo.png') }}" alt="Mooolagi" style="height:56px"></a></div>
         <div class="mo-auth-card">
-            <h2>Masuk ke Akun Pelanggan</h2>
-            <p class="small">Gunakan email aktif dan kata sandi terdaftar.</p>
-            <hr>
+            <h2>Selamat Datang Kembali!</h2>
             @if($errors->has('login_error'))
-                <div class="alert alert-danger">{{ $errors->first('login_error') }}</div>
+                <div class="alert alert-danger py-2 small">{{ $errors->first('login_error') }}</div>
             @endif
             <form method="POST" action="{{ route('pelanggan.login') }}">
                 @csrf
                 <div class="mb-3">
-                    <label class="mo-label">Email Aktif *</label>
-                    <input type="email" name="email" class="mo-input w-100" value="{{ old('email') }}" placeholder="pelanggan@example.com" required>
+                    <label class="mo-label">Email</label>
+                    <input type="email" name="email" class="mo-field" value="{{ old('email') }}" required>
                 </div>
                 <div class="mb-4">
-                    <label class="mo-label">Kata Sandi *</label>
-                    <input type="password" name="kata_sandi" class="mo-input w-100" required>
+                    <label class="mo-label">Password</label>
+                    <input type="password" name="kata_sandi" class="mo-field" required>
                 </div>
-                <button class="btn btn-primary w-100 py-2" type="submit">Masuk ke Akun</button>
+                <button class="mo-btn mo-btn-green w-100" type="submit">Masuk</button>
             </form>
-            <hr class="mt-4">
-            <p class="text-center small mb-0">Belum punya akun? <a href="#daftar">Daftar di sini</a></p>
+            <p class="text-center small mt-3 mb-0" style="opacity:.8">Belum punya akun? <a href="#daftar" style="color:var(--bubblegum);font-weight:600">Daftar di sini</a></p>
         </div>
+        <a href="{{ route('beranda') }}" class="mo-back">← Kembali ke Beranda</a>
     </div>
 
     {{-- UC-13: Sign Up --}}
-    <div class="col-lg-5" id="daftar">
+    <div class="col-lg-4 col-md-6" id="daftar">
+        <div class="text-center mb-2"><a href="{{ route('beranda') }}"><img src="{{ asset('images/logo.png') }}" alt="Mooolagi" style="height:56px"></a></div>
         <div class="mo-auth-card">
-            <h2>Daftar Akun Baru</h2>
-            <p class="small">Lengkapi data untuk kemudahan pemesanan &amp; tracking.</p>
-            <hr>
+            <h2>Buat Akun Baru</h2>
             @if($errors->any() && !$errors->has('login_error'))
-                <div class="alert alert-danger">
-                    <ul class="mb-0 ps-3">
-                        @foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach
-                    </ul>
+                <div class="alert alert-danger py-2 small">
+                    <ul class="mb-0 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul>
                 </div>
             @endif
             <form method="POST" action="{{ route('pelanggan.register') }}">
                 @csrf
                 <div class="mb-3">
-                    <label class="mo-label">Nama Lengkap / Username *</label>
-                    <input type="text" name="username_nama" class="mo-input w-100" value="{{ old('username_nama') }}" required>
+                    <label class="mo-label">Nama Lengkap</label>
+                    <input type="text" name="username_nama" class="mo-field" value="{{ old('username_nama') }}" required>
                 </div>
                 <div class="mb-3">
-                    <label class="mo-label">Email Aktif *</label>
-                    <input type="email" name="email" class="mo-input w-100" value="{{ old('email') }}" required>
+                    <label class="mo-label">Email</label>
+                    <input type="email" name="email" class="mo-field" value="{{ old('email') }}" required>
                 </div>
                 <div class="mb-3">
-                    <label class="mo-label">Kata Sandi (Minimal 8 Karakter) *</label>
-                    <input type="password" name="kata_sandi" class="mo-input w-100" required>
+                    <label class="mo-label">Password (minimal 8 karakter)</label>
+                    <input type="password" name="kata_sandi" class="mo-field" required>
                 </div>
                 <div class="mb-4">
-                    <label class="mo-label">Ulangi Konfirmasi Kata Sandi *</label>
-                    <input type="password" name="kata_sandi_confirmation" class="mo-input w-100" required>
+                    <label class="mo-label">Konfirmasi Password</label>
+                    <input type="password" name="kata_sandi_confirmation" class="mo-field" required>
                 </div>
-                <button class="btn btn-primary w-100 py-2" type="submit">Daftarkan Akun Baru</button>
+                <button class="mo-btn mo-btn-pink w-100" type="submit">Daftar Sekarang</button>
             </form>
+            <p class="text-center small mt-3 mb-0" style="opacity:.8">Sudah punya akun? <a href="{{ route('login') }}" style="color:var(--meadow);font-weight:600">Masuk di sini</a></p>
         </div>
+        <a href="{{ route('beranda') }}" class="mo-back">← Kembali ke Beranda</a>
     </div>
 </div>
 @endsection

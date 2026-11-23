@@ -2,19 +2,8 @@
 @section('title', 'Testimoni — Mooolagi')
 
 @section('content')
-<div class="mo-page-head">
-    <h1>Cerita &amp; Testimoni Pelanggan</h1>
-    <p>Inspirasi nyata dari mereka yang telah mempercayakan pembuatan kado kejutan, template, dan hampers personal kepada Mooolagi Studio.</p>
-</div>
-<hr class="mo-rule">
-
-<div class="mo-stat mb-4">
-    <div class="row text-center g-3">
-        <div class="col-md-4"><strong>4.9 / 5.0</strong><span>Rata-rata Skor Kepuasan</span></div>
-        <div class="col-md-4"><strong>150+</strong><span>Kado Kejutan Terkirim</span></div>
-        <div class="col-md-4"><strong>100%</strong><span>Jaminan Sentuhan Personal</span></div>
-    </div>
-</div>
+<h1 class="mo-page-title">Testimoni Pelanggan</h1>
+<p class="mo-page-sub">Cerita dari mereka yang telah mempercayakan kado kejutannya kepada Mooolagi</p>
 
 @if($testimoni->isEmpty())
     <div class="alert alert-info">Konten belum tersedia.</div>
@@ -27,15 +16,15 @@
         @endphp
         <div class="col-lg-4 col-md-6">
             <div class="mo-testi">
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3 mb-3">
                     <span class="mo-avatar">{{ $inisial }}</span>
-                    <strong>{{ $t->nama_pemberi }}</strong>
+                    <div>
+                        <strong style="font-family:'Fredoka',sans-serif">{{ $t->nama_pemberi }}</strong>
+                        <div class="small" style="opacity:.65">{{ \Carbon\Carbon::parse($t->tanggal)->locale('id')->translatedFormat('d F Y') }}</div>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-between align-items-center border-top border-bottom my-3 py-2">
-                    <span class="mo-stars">★★★★★ 5/5</span>
-                    <small>{{ \Carbon\Carbon::parse($t->tanggal)->locale('id')->translatedFormat('d F Y') }}</small>
-                </div>
-                <blockquote>“{{ $t->isi_testimoni }}”</blockquote>
+                <div style="color:var(--sunshine);letter-spacing:2px">★★★★★</div>
+                <p class="fst-italic mt-2 mb-0">“{{ $t->isi_testimoni }}”</p>
             </div>
         </div>
         @endforeach

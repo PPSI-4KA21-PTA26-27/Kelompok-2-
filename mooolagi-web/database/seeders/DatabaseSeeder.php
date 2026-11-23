@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * Data awal Sprint 1 — isi disesuaikan dengan mockup Figma System Designer.
+ * Data awal Sprint 1 — isi disesuaikan dengan desain Figma (page 2) System Designer.
  * Foto produk ada di public/images (path relatif terhadap folder public).
  */
 class DatabaseSeeder extends Seeder
@@ -33,10 +33,11 @@ class DatabaseSeeder extends Seeder
         $note   = DB::table('kategori')->insertGetId(['nama_kategori' => 'Digital Notepad']);
         $box    = DB::table('kategori')->insertGetId(['nama_kategori' => 'Custom Box']);
         $photo  = DB::table('kategori')->insertGetId(['nama_kategori' => 'Photostrip & Tracker']);
+        $desain = DB::table('kategori')->insertGetId(['nama_kategori' => 'Design Service']);
 
         // Dimasukkan dari yang paling lama ke terbaru agar urutan "Terbaru" sama dengan mockup
         DB::table('produk')->insert([
-            ['id_kategori' => $canva, 'nama' => 'Custom Design Service - E-Invitation & Souvenir Mockup',
+            ['id_kategori' => $desain, 'nama' => 'Custom Design Service - E-Invitation & Souvenir Mockup',
              'deskripsi' => 'Layanan desain custom 1-on-1 bersama tim desainer Mooolagi untuk kebutuhan undangan pernikahan, ulang tahun, atau packaging bisnis.',
              'harga' => 85000, 'gambar' => 'images/produk-desain.jpg'],
             ['id_kategori' => $photo, 'nama' => 'Photostrip Vintage 4-Cut & Study Tracker Set',
