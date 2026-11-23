@@ -81,8 +81,12 @@ class AuthPelangganController extends Controller
             'password' => $request->kata_sandi,
         ])) {
             RateLimiter::clear($throttleKey);
+            // Abaikan tujuan lama bila mengarah ke area Admin
+            $tujuan = $request->session()->pull('url.intended');
             $request->session()->regenerate();
-            return redirect()->intended(route('beranda'))
+            $url = ($tujuan && ! str_contains($tujuan, '/admin')) ? $tujuan : route('beranda');
+
+            return redirect($url)
                 ->with('success', 'Selamat datang kembali di Mooolagi!');
         }
 
